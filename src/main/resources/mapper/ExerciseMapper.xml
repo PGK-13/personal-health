@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.example.mapper.ExerciseMapper">
+
+    <!-- 分页查询 -->
+    <select id="selectExerciseVOPage" resultType="org.example.pojo.vo.ExerciseVO">
+        SELECT
+        e.exercise_id,
+        e.exercise_type_id,
+        et.type_name,
+        et.unit_calorie,
+        et.unit_type,
+        e.value,
+        (e.value * et.unit_calorie) AS calories,
+        e.recorded_at
+        FROM Exercise e
+        LEFT JOIN exercise_types et ON e.exercise_type_id = et.exercise_type_id
+        <where>
+            <if test="dto.exerciseTypeId != null">
+                AND e.exercise_type_id = #{dto.exerciseTypeId}
+            </if>
+            <if test="dto.recordedAt != null">
+                AND DATE(e.recorded_at) = DATE(#{dto.recordedAt})
+            </if>
+        </where>
+        ORDER BY e.recorded_at DESC
+    </select>
+
+</mapper>

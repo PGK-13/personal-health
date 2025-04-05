@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.example.mapper.DietMapper">
+
+    <!-- 分页查询 -->
+    <select id="selectDietVOPage" resultType="org.example.pojo.vo.DietVO">
+        SELECT
+        di.food_name,
+        di.calorie_per_unit,
+        di.unit,
+        d.value,
+        (d.value * di.calorie_per_unit) AS calories,
+        d.recorded_at
+        FROM Diet d
+        LEFT JOIN food_items fi ON d.food_id = fi.food_id
+        <where>
+            <if test="dto.recordedAt != null">
+                AND DATE(d.recorded_at) = DATE(#{dto.recordedAt})
+            </if>
+        </where>
+        ORDER BY d.recorded_at DESC
+    </select>
+
+</mapper>

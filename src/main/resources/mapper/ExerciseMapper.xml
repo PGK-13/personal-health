@@ -18,8 +18,8 @@
         FROM Exercise e
         LEFT JOIN exercise_types et ON e.exercise_type_id = et.exercise_type_id
         <where>
-            <if test="dto.exerciseTypeId != null">
-                AND e.exercise_type_id = #{dto.exerciseTypeId}
+            <if test="dto.typeName != null and dto.typeName != ''">
+                AND et.type_name LIKE CONCAT('%', #{dto.typeName}, '%')
             </if>
             <if test="dto.recordedAt != null">
                 AND DATE(e.recorded_at) = DATE(#{dto.recordedAt})

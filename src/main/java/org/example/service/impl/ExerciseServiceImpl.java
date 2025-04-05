@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.example.mapper.ExerciseMapper;
 import org.example.mapper.ExerciseTypeMapper;
 import org.example.pojo.dto.Code;
+import org.example.pojo.dto.ExerciseAddDTO;
 import org.example.pojo.dto.ExerciseDTO;
 import org.example.pojo.entity.ExerciseType;
 import org.example.pojo.result.Result;
@@ -29,17 +30,17 @@ public class ExerciseServiceImpl implements ExerciseService {
     private ExerciseTypeMapper exerciseTypeMapper;
 
     @Override
-    public Result add(ExerciseDTO exerciseDTO) {
+    public Result add(ExerciseAddDTO exerciseAddDTO) {
         Exercise exercise = new Exercise();
-        BeanUtils.copyProperties(exerciseDTO, exercise);
+        BeanUtils.copyProperties(exerciseAddDTO, exercise);
 
         Map<String, Object> map = ThreadLocalUtil.get();
         Integer userid = (Integer) map.get("id");
-        exercise.setUserID(userid);
+        exercise.setUserId(userid);
         exercise.setRecordedAt(LocalDateTime.now());
 
         QueryWrapper<ExerciseType> queryWrapper = new QueryWrapper<>();
-        queryWrapper.like("type_name", exerciseDTO.getTypeName());
+        queryWrapper.like("type_name", exerciseAddDTO.getTypeName());
         ExerciseType exerciseType = exerciseTypeMapper.selectOne(queryWrapper);
         exercise.setExerciseTypeId(exerciseType.getExerciseTypeId());
 

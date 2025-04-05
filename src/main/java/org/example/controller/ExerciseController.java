@@ -1,6 +1,8 @@
 package org.example.controller;
 
+import org.example.pojo.dto.ExerciseAddDTO;
 import org.example.pojo.dto.ExerciseDTO;
+import org.example.pojo.entity.Exercise;
 import org.example.pojo.result.Result;
 import org.example.service.ExerciseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +15,8 @@ public class ExerciseController {
     private ExerciseService exerciseService;
 
     @PostMapping("/add")
-    public Result add(@RequestBody ExerciseDTO exerciseDTO) {
-        return null;
+    public Result add(@RequestBody ExerciseAddDTO exerciseAddDTO) {
+        return exerciseService.add(exerciseAddDTO);
     }
 
     @GetMapping("/list")

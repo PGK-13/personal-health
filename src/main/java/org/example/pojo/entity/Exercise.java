@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class Exercise {
     @TableId(type = IdType.AUTO)
     private Integer exerciseId;
-    private Integer userID;
+    private Integer userId;
     private Integer exerciseTypeId;
     private double value;
     private double calories;

@@ -1,33 +1,31 @@
-HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# 编译输出
+/target/
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+# IDEA 文件
+/.idea/
+/*.iml
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
+# 日志
+*.log
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+# 系统文件
+.DS_Store
+Thumbs.db
 
-### VS Code ###
-.vscode/
+# 环境配置（敏感信息别上传）
+*.env
+*.properties.local
+application-dev.yml
+application-test.yml
+
+# Maven wrapper
+.mvn/
+!/.mvn/wrapper/maven-wrapper.jar
+
+# 临时文件
+*.tmp
+*.swp
+
+# 操作系统文件
+ehthumbs.db
+Icon?

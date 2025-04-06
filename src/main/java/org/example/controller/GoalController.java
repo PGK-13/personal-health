@@ -18,7 +18,7 @@ public class GoalController {
     @Autowired
     public GoalService goalService;
 
-    @GetMapping("/list/{id}")
+    @GetMapping("/list/{currentPage}")
     public Result list(@PathVariable int currentPage) {
         return goalService.list(currentPage);
     }

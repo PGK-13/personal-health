@@ -1,6 +1,6 @@
 package org.example.service.impl;
 
-import org.example.mapper.VitalSignDao;
+import org.example.mapper.VitalSignMapper;
 import org.example.pojo.dto.Code;
 import org.example.pojo.result.Result;
 import org.example.pojo.entity.VitalSign;
@@ -16,14 +16,14 @@ import java.util.Map;
 public class VitalSignServiceImpl implements VitalSignService {
 
     @Autowired
-    private VitalSignDao vitalSignDao;
+    private VitalSignMapper vitalSignMapper;
 
     @Override
     public Result update(VitalSign vitalSign) {
         vitalSign.setRecordedAt(LocalDateTime.now());
         Map<String, Object> map = ThreadLocalUtil.get();
         vitalSign.setUserId((Integer) map.get("id"));
-        int row = vitalSignDao.updateById(vitalSign);
+        int row = vitalSignMapper.updateById(vitalSign);
         if (row > 0) {
             return new Result(Code.UPDATE_OK, "更新成功");
         } else {
@@ -35,7 +35,7 @@ public class VitalSignServiceImpl implements VitalSignService {
     public Result list() {
         Map<String, Object> map = ThreadLocalUtil.get();
         Integer userid = (Integer) map.get("id");
-        VitalSign vitalSign = vitalSignDao.selectById(userid);
+        VitalSign vitalSign = vitalSignMapper.selectById(userid);
         if (vitalSign != null) {
             return new Result(Code.GET_OK, vitalSign, "查询成功");
         } else {

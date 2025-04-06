@@ -5,5 +5,5 @@ import org.apache.ibatis.annotations.Mapper;
 import org.example.pojo.entity.VitalSign;
 
 @Mapper
-public interface VitalSignDao extends BaseMapper<VitalSign> {
+public interface VitalSignMapper extends BaseMapper<VitalSign> {
 }

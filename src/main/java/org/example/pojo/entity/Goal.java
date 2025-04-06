@@ -23,5 +23,5 @@ public class Goal {
     private double targetValue;
     private LocalDate startDate;
     private LocalDate endDate;
-    private double progree;
+    private double progress;
 }

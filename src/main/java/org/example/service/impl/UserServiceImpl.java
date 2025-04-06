@@ -2,7 +2,7 @@ package org.example.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.example.mapper.UserDao;
-import org.example.mapper.VitalSignDao;
+import org.example.mapper.VitalSignMapper;
 import org.example.pojo.dto.Code;
 import org.example.pojo.dto.LoginDTO;
 import org.example.pojo.result.Result;
@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
     @Autowired
-    private VitalSignDao vitalSignDao;
+    private VitalSignMapper vitalSignMapper;
 
     @Override
     public Result register(User user) {
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
         VitalSign vitalSign = new VitalSign();
         vitalSign.setUserId(user.getUserId());
         vitalSign.setRecordedAt(LocalDateTime.now());
-        vitalSignDao.insert(vitalSign);
+        vitalSignMapper.insert(vitalSign);
 
         return new Result(Code.SAVE_OK, user, "注册成功");
     }

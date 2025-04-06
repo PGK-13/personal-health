@@ -30,6 +30,10 @@ public class ReminderServiceImpl implements ReminderService {
     public Result list(int currentPage) {
         QueryWrapper<Reminder> queryWrapper = new QueryWrapper<>();
 
+        Map<String, Object> map = ThreadLocalUtil.get();
+        Integer userid = (Integer) map.get("id");
+
+        queryWrapper.eq("user_id", userid);
         Page<Reminder> page = new Page<>(currentPage, 10);
         Page<Reminder> resultPage =  reminderMapper.selectPage(page, queryWrapper);
 
@@ -45,7 +49,7 @@ public class ReminderServiceImpl implements ReminderService {
         Integer userid = (Integer) map.get("id");
         reminder.setUserId(userid);
 
-        reminder.setStatus(1);
+        reminder.setStatus(0);
 
         reminderMapper.insert(reminder);
         return new Result(Code.SAVE_OK, null, "插入成功");

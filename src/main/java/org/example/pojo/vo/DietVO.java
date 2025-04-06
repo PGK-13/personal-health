@@ -1,5 +1,7 @@
 package org.example.pojo.vo;
 
+import lombok.Data;
+
 import java.time.LocalDateTime;
 
 /**
@@ -8,6 +10,7 @@ import java.time.LocalDateTime;
  * @return
  * @date 2025/3/31
  */
+@Data
 public class DietVO {
     private String foodName;
     private String unit;

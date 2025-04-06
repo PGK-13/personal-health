@@ -16,5 +16,9 @@ public class DietDTO {
 
     private int pageSize;
 
+    private Integer userId;
+
+    private String foodName;
+
     private LocalDateTime recordedAt;
 }

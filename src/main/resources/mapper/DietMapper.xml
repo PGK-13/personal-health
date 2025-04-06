@@ -7,15 +7,21 @@
     <!-- 分页查询 -->
     <select id="selectDietVOPage" resultType="org.example.pojo.vo.DietVO">
         SELECT
-        di.food_name,
-        di.calorie_per_unit,
-        di.unit,
-        d.value,
-        (d.value * di.calorie_per_unit) AS calories,
+        fi.food_name,
+        fi.calorie_per_unit,
+        fi.unit,
+        d.quantity,
+        (d.quantity * fi.calorie_per_unit) AS calories,
         d.recorded_at
         FROM Diet d
         LEFT JOIN food_items fi ON d.food_id = fi.food_id
         <where>
+            <if test="dto.userId != null">
+                AND d.user_id = #{dto.userId}
+            </if>
+            <if test="dto.foodName != null and dto.foodName != ''">
+                AND fi.food_name LIKE CONCAT('%', #{dto.foodName}, '%')
+            </if>
             <if test="dto.recordedAt != null">
                 AND DATE(d.recorded_at) = DATE(#{dto.recordedAt})
             </if>

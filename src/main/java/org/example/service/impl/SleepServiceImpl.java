@@ -12,6 +12,7 @@ import org.example.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Map;
@@ -29,10 +30,13 @@ public class SleepServiceImpl implements SleepService {
         Integer userid = (Integer) map.get("id");
         sleep.setUserId(userid);
         sleep.setRecordedAt(LocalDateTime.now());
+
         LocalDateTime start = sleep.getStartTime();
         LocalDateTime end = sleep.getEndTime();
-        int hoursDiff = (int) ChronoUnit.HOURS.between(start, end); // 计算分钟差
-        sleep.setDuration(hoursDiff);
+        // 使用 Duration 计算差值
+        Duration duration = Duration.between(start, end);
+        long minutes = duration.toMinutes(); // 剩余分钟数
+        sleep.setDuration(minutes);
 
         sleepDao.insert(sleep);
 

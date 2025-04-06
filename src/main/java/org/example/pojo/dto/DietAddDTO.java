@@ -12,5 +12,5 @@ import lombok.Data;
 public class DietAddDTO {
     private String foodName;
 
-    private double value;
+    private double quantity;
 }

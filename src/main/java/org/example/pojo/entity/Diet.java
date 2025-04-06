@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 public class Diet {
     @TableId(type = IdType.AUTO)
     private Integer dietId;
-    private Integer userID;
+    private Integer userId;
     private Integer foodId;
     private double quantity;
     private double calories;

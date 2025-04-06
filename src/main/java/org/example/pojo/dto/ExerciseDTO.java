@@ -16,6 +16,8 @@ public class ExerciseDTO {
 
     private int pageSize;
 
+    private Integer userId;
+
     private Integer exerciseTypeId;
 
     private String typeName;

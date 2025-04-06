@@ -52,6 +52,10 @@ public class ExerciseServiceImpl implements ExerciseService {
 
     @Override
     public Result pageQuery(ExerciseDTO exerciseDTO) {
+        Map<String, Object> map = ThreadLocalUtil.get();
+        Integer userid = (Integer) map.get("id");
+        exerciseDTO.setUserId(userid);
+
         Page<ExerciseVO> page = new Page<>(exerciseDTO.getPage(), exerciseDTO.getPageSize());
         IPage<ExerciseVO> resultPage =  exerciseMapper.selectExerciseVOPage(page, exerciseDTO);
         return new Result(Code.GET_OK, resultPage, "查询成功");

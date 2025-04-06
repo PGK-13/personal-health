@@ -18,6 +18,9 @@
         FROM Exercise e
         LEFT JOIN exercise_types et ON e.exercise_type_id = et.exercise_type_id
         <where>
+            <if test="dto.userId != null">
+                AND e.user_id = #{dto.userId}
+            </if>
             <if test="dto.typeName != null and dto.typeName != ''">
                 AND et.type_name LIKE CONCAT('%', #{dto.typeName}, '%')
             </if>

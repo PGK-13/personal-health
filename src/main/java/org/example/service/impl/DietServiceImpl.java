@@ -36,8 +36,12 @@ public class DietServiceImpl implements DietService {
     private FoodItemMapper foodItemMapper;
     @Override
     public Result pageQuery(DietDTO dietDTO) {
+        Map<String, Object> map = ThreadLocalUtil.get();
+        Integer userid = (Integer) map.get("id");
+        dietDTO.setUserId(userid);
+
         Page<DietVO> page = new Page<>(dietDTO.getPage(), dietDTO.getPageSize());
-        IPage<ExerciseVO> resultPage =  dietMapper.selectDietVOPage(page, dietDTO);
+        IPage<DietVO> resultPage =  dietMapper.selectDietVOPage(page, dietDTO);
         return new Result(Code.GET_OK, resultPage, "查询成功");
     }
 
@@ -46,9 +50,12 @@ public class DietServiceImpl implements DietService {
         Diet diet = new Diet();
         BeanUtils.copyProperties(dietAddDTO, diet);
 
+        System.out.println(dietAddDTO.getQuantity());
+        System.out.println(diet.getQuantity());
+
         Map<String, Object> map = ThreadLocalUtil.get();
         Integer userid = (Integer) map.get("id");
-        diet.setUserID(userid);
+        diet.setUserId(userid);
         // TODO 如果用户传入吃饭时间，则修改DTO类，并更换为用户传入时间
         diet.setRecordedAt(LocalDateTime.now());
 
@@ -56,8 +63,7 @@ public class DietServiceImpl implements DietService {
         queryWrapper.like("food_name", dietAddDTO.getFoodName());
         FoodItem foodItem = foodItemMapper.selectOne(queryWrapper);
         diet.setFoodId(foodItem.getFoodId());
-        // TODO 计算卡路里
-
+        diet.setCalories(foodItem.getCaloriePerUnit() * diet.getQuantity());
         dietMapper.insert(diet);
         return new Result(Code.SAVE_OK, diet, "新增成功");
     }
